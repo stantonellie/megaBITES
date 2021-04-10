@@ -1,14 +1,9 @@
 from flask import Flask, render_template_string
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "SETIBagem"
-app.config["BLOGGING_SITEURL"] = "http://localhost:8000"
-app.config["BLOGGING_SITENAME"] = "megaBITES"
-app.config["BLOGGING_KEYWORDS"] = ["blog", "food"]
 
 engine = create_engine('sqlite:////tmp/blog.db')
-meta = MetaData()
 
 
 @app.route("/")
