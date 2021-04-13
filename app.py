@@ -4,7 +4,7 @@ app = Flask( __name__ )
 
 from sqlalchemy import create_engine
 import sqlalchemy.orm
-from database_setup import Base
+from database_setup import Base, Blog
 
 engine = create_engine( "mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4" )
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404'
@@ -13,48 +13,49 @@ Base.metadata.bind = engine
 DBSession = sqlalchemy.orm.sessionmaker( bind=engine )
 session = DBSession()
 
-# @app.route( '/' )
-# @app.route( '/blog' )
-# def showBooks():
-#     books = session.query( Book ).all()
-#     return render_template( "books.html", books=books )
-#
-#
-# # This will let us Create a new book and save it in our database
-# @app.route( '/books/new/', methods=['GET', 'POST'] )
-# def newBook():
-#     if request.method == 'POST':
-#         newBook = Book( title=request.form['name'], author=request.form['author'], genre=request.form['genre'] )
-#         session.add( newBook )
-#         session.commit()
-#         return redirect( url_for( 'showBooks' ) )
-#     else:
-#         return render_template( 'createbook.html' )
-#
-#
-# # This will let us Update our books and save it in our database
-# @app.route( "/books/<int:book_id>/edit/", methods=['GET', 'POST'] )
-# def editBook(book_id):
-#     editedBook = session.query( Book ).filter_by( id=book_id ).one()
-#     if request.method == 'POST':
-#         if request.form['name']:
-#             editedBook.title = request.form['name']
-#             return redirect( url_for( 'showBooks' ) )
-#     else:
-#         return render_template( 'editBook.html', book=editedBook )
-#
-#
-# # This will let us Delete our book
-# @app.route( '/books/<int:book_id>/delete/', methods=['GET', 'POST'] )
-# def deleteBook(book_id):
-#     bookToDelete = session.query( Book ).filter_by( id=book_id ).one()
-#     if request.method == 'POST':
-#         session.delete( bookToDelete )
-#         session.commit()
-#         return redirect( url_for( 'showBooks', book_id=book_id ) )
-#     else:
-#         return render_template( 'deleteBook.html', book=bookToDelete )
-#
+@app.route( '/' )
+
+@app.route( '/blogs' )
+def showBlogs():
+    blogs = session.query( Blog ).all()
+    return render_template( "blog_post.html", blogs=blogs )
+
+
+# This will let us Create a new blog post and save it in our database
+@app.route( '/blogs/new/', methods=['GET', 'POST'] )
+def newBlog():
+    if request.method == 'POST':
+        newBlog = Blog( title=request.form['name'], author=request.form['author'], post_date=request.form['date'] )
+        session.add( newBlog )
+        session.commit()
+        return redirect( url_for( 'showBlogs' ) )
+    else:
+        return render_template( 'create_post.html' )
+
+
+# This will let us Update our blog posts and save it in our database
+@app.route( "/blogs/<int:post_id>/edit/", methods=['GET', 'POST'] )
+def editBlog(post_id):
+    editedBlog = session.query( Blog ).filter_by( id=post_id ).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedBlog.title = request.form['name']
+            return redirect( url_for( 'showBlogs' ) )
+    else:
+        return render_template( 'edit_blog.html', blog=editedBlog)
+
+
+# This will let us Delete our blog post
+@app.route( '/blogs/<int:post_id>/delete/', methods=['GET', 'POST'] )
+def deleteBlog(post_id):
+    BlogToDelete = session.query( Blog ).filter_by( id=post_id ).one()
+    if request.method == 'POST':
+        session.delete( BlogToDelete )
+        session.commit()
+        return redirect( url_for( 'showBlogs', post_id=post_id ) )
+    else:
+        return render_template( 'delete_blog.html', blog=BlogToDelete )
+
 
 if __name__ == '__main__':
     app.debug = True

@@ -5,6 +5,21 @@
     <title>Title</title>
 </head>
 <body>
-
+<h1>megaBITES: Coders who Cook</h1>
+<a href="{{url_for('newBlog')}}">
+    <button>Add new blog post</button>
+</a>
+<ol>
+    {% for post in blogs %}
+    <li> {{post.title}} by {{post.author}}</li>
+    <a href="{{url_for('editBlog', post_id = post.id )}}">
+        Edit
+    </a>
+    <a href="{{url_for('deleteBlog', post_id = post.id )}}" style="margin-left: 10px;">
+        Delete
+    </a>
+    <br> <br>
+    {% endfor %}
+</ol>
 </body>
 </html>

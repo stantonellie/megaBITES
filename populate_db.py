@@ -28,8 +28,6 @@ session = DBSession()
 
 # Create
 
-
-
 Post_one = Blog ( Author="Kaz", Title="Vegan Bolognese", Contents="How to make vegan bologenese" )
 session.add(Post_one)
 session.commit()

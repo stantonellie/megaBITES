@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{{ url_for('editBlogs',post_id = post.id)}}" method="post">
+    <div class="form-group">
+        <label for="name">Title:</label>
+        <input type="text" class="form-control" name="name" value="{{post.title }}">
+        <button type="submit"> SAVE</button>
+        <a href='{{url_for('showBlogs')}}'>
+            <button>Cancel</button>
+        </a>
+    </div>
+</form>
+</body>
+</html>
