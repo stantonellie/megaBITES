@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 from sqlalchemy import Column, ForeignKey, Integer, String, MetaData, Table, ForeignKeyConstraint, DateTime, \
     text
 
@@ -16,7 +17,7 @@ from database_setup import Base, Blog
 
 # bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
-engine = create_engine( "mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4" )
+engine = create_engine("mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4")
 
 Base.metadata.bind = engine
 
