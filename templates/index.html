@@ -12,7 +12,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
             <h1>megaBITES</h1>
-            <span class="subheading">A taste of hope</span>
+            <span class="subheading">the coding chefs</span>
           </div>
         </div>
       </div>
@@ -20,10 +20,28 @@
   </header>
 
   <!-- Main Content -->
-  <div class="container">
-      <h1>Home Page - Welcome</h1>
-      <h3>Complete demo </h3>
-      <p>Demo of Flask WTF Registration Form.</p>
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+          {% for post in posts %}
+          <div class="post-preview">
+            <a href="post/{{post.post_id}}">
+                <h2 class="post-title">
+                  {{post.blog_title}}
+                </h2>
+            </a>
+          <p class="post-meta">Posted by
+            <a href="#">{{post.blog_author}}</a>
+            on {{post.post_date}}</p>
+            </div>
+        <hr>
+        {% endfor %}
+        <!-- Pager -->
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        </div>
+      </div>
+    </div>
   </div>
 
 {% endblock %}

@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 from sqlalchemy import create_engine
 import sqlalchemy.orm
-from database_setup import Base
+from database_setup import Base, Blog
 
 engine = create_engine("mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404'
@@ -15,7 +15,12 @@ session = DBSession()
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", posts=session.query(Blog).all())
+
+@app.route('/post/<post>')
+def post(post):
+    return render_template("post.html", post=session.query(Blog).filter_by(post_id=post).first())
+
 
 # @app.route( '/' )
 # @app.route( '/blog' )

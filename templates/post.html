@@ -1,0 +1,27 @@
+{% extends 'blog_base.html' %}
+
+{% block title %} {{post.blog_title}} {% endblock %}
+
+{% block body %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>megaBITES</h1>
+            <span class="subheading">the coding chefs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+<div class="container">
+    <p>{{post.content}}</p>
+  </div>
+
+{% endblock %}
