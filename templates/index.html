@@ -4,10 +4,26 @@
 
 {% block body %}
 
-<div class="container">
-    <h1>Home Page - Welcome</h1>
-    <h3>Complete demo </h3>
-    <p>Demo of Flask WTF Registration Form.</p>
-</div>
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>megaBITES</h1>
+            <span class="subheading">A taste of hope</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+      <h1>Home Page - Welcome</h1>
+      <h3>Complete demo </h3>
+      <p>Demo of Flask WTF Registration Form.</p>
+  </div>
 
 {% endblock %}
