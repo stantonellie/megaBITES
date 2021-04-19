@@ -4,64 +4,66 @@
 
 {% block body %}
 
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+<!-- Page Header -->
+<header class="masthead"
+        style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
     <div class="overlay"></div>
     <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>megaBITES</h1>
-            <span class="subheading">the coders who cook</span>
-          </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>megaBITES</h1>
+                    <span class="subheading">the coders who cook</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
+</header>
 
-  <!-- Main Content -->
+<!-- Main Content -->
 <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-          {% for post in posts %}
-          <div class="post-preview">
-            <a href="post/{{post.post_id}}">
-                <h2 class="post-title">
-                  {{post.blog_title}}
-                </h2>
-            </a>
-          <p class="post-meta">Posted by
-            <a href="#">{{post.blog_author}}</a>
-            on {{post.post_date}}</p>
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% for post in posts %}
+            <div class="post-preview">
+                <a href="post/{{post.post_id}}">
+                    <h2 class="post-title">
+                        {{post.blog_title}}
+                    </h2>
+                </a>
+                <p class="post-meta">Posted by
+                    <a href="#">{{post.blog_author}}</a>
+                    on {{post.post_date}}</p>
             </div>
-        <hr>
-        {% endfor %}
-        <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            <hr>
+            {% endfor %}
+            <!-- Pager -->
+            <div class="clearfix">
+                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
 <footer>
-    <div>
-        <h3 style="text-align:center">The megaBITES Newsletter</h3>
-        <br>
-        <h4 style="text-align:center">Mouthwatering recipes and cooking hacks right to your inbox!</h4>
+    <div class="row justify-content-center">
+        <h3>The megaBITES Newsletter</h3>
     </div>
-
-  <form class="form-inline">
-  <div class="form-group mb-2">
-    <label for="optiontosubscribe" class="sr-only">Email</label>
-   <input type="text" readonly class="form-control-plaintext" id="optiontosubscribe" value="Love the Coders who Cook?">
-  </div>
-  <div class="form-group mx-sm-3 mb-2">
-    <label for="inputEmail" class="sr-only">Email</label>
-    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-  </div>
-  <button type="submit" class="btn btn-primary mb-2">Subscribe!</button>
-</form>
+    <div class="row justify-content-center">
+        <h4>Mouthwatering recipes and cooking hacks right to your inbox!</h4>
+    </div>
+    <div class="row justify-content-center">
+        <h4>Love the Coders who Cook?</h4>
+    </div>
+    <div class="row justify-content-center">
+        <form class="form-inline" action="{{ url_for('subscribe') }}" method="post">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="email" class="sr-only">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+            </div>
+            <button type="submit" value="Subscribe" class="btn btn-primary mb-2">Subscribe!</button>
+        </form>
+    </div>
 </footer>
 
 {% endblock %}

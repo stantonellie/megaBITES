@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
-
-app = Flask(__name__)
-
+from flask import Flask, render_template, redirect
+from flask import request
 from sqlalchemy import create_engine
 import sqlalchemy.orm
-from database_setup import Base, Blog
+from database_setup import Base, Blog, Subscriber
 
+app = Flask(__name__)
 
 engine = create_engine("mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404'
@@ -24,13 +23,33 @@ def home():
 def post(post):
     return render_template("post.html", post=session.query(Blog).filter_by(post_id=post).first())
 
+
 @app.route('/recipes/')
 def recipes():
     return render_template("recipes.html")
 
+
 @app.route('/contact/')
 def contact():
     return render_template("contact.html")
+
+
+def dump(obj):
+    for attr in dir(obj):
+        print("obj.%s = %r" % (attr, getattr(obj, attr)))
+
+
+@app.route('/subscribe', methods=['POST'])
+def subscribe():
+    email = request.form.get('email')
+    try:
+        session.add(Subscriber(email=email))
+        session.commit()
+        return render_template("thank_you_for_subscribing.html")
+    except:
+        session.rollback()
+        return render_template("error.html", email=email, error="Email is already registered")
+
 
 # @app.route('/login/')
 # def login():
@@ -39,7 +58,6 @@ def contact():
 # @app.route('/registration/')
 # def registration():
 #     return render_template("registration.html")
-
 
 
 # @app.route( '/' )
