@@ -1,91 +1,91 @@
-{% extends 'blog_base.html' %}
+<!--{% extends 'blog_base.html' %}-->
 
-{% block title %} Registration {% endblock %}
+<!--{% block title %} Registration {% endblock %}-->
 
-{% block body %}
+<!--{% block body %}-->
 
-<div class="container">
-    <h1>Registration Page - Welcome</h1>
-<h3>Please register to login</h3>
+<!--<div class="container">-->
+<!--    <h1>Registration Page - Welcome</h1>-->
+<!--<h3>Please register to login</h3>-->
 
-    <br>
-    <br>
-    <hr>
+<!--    <br>-->
+<!--    <br>-->
+<!--    <hr>-->
 
-    {% with messages = get_flashed_messages() %}
+<!--    {% with messages = get_flashed_messages() %}-->
 
-    {% if messages %}
+<!--    {% if messages %}-->
 
-    {% for message in messages %}
+<!--    {% for message in messages %}-->
 
-       <div class="alert alert-success alert-dismissable" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close">
-            <span aria-hidden="true">X</span>
-        </button>
+<!--       <div class="alert alert-success alert-dismissable" role="alert">-->
+<!--        <button type="button" class="close" data-dismiss="alert" aria-label="close">-->
+<!--            <span aria-hidden="true">X</span>-->
+<!--        </button>-->
 
-             {{message}}
+<!--             {{message}}-->
 
-    </div>
-
-
-
-
-    {% endfor  %}
-
-    {% endif %}
-
-    {% endwith %}
-
-    <h1>Please Register</h1>
-
-    <form action="" method="post" novalidate>
-      {{forms.csrf_token}}
-
-      <p>
-
-          {{forms.username.label}}
-          {{forms.username(size=32)}}
+<!--    </div>-->
 
 
 
-          {% for error in forms.username.errors %}
-          <span style="color:red;">
 
-              {{error}}
-          </span>
-          {% endfor %}
+<!--    {% endfor  %}-->
 
-      </p>
+<!--    {% endif %}-->
 
+<!--    {% endwith %}-->
 
-         <p>
+<!--    <h1>Please Register</h1>-->
 
-          {{forms.password.label}}
-          {{forms.password(size=32)}}
+<!--    <form action="" method="post" novalidate>-->
+<!--      {{forms.csrf_token}}-->
 
+<!--      <p>-->
 
-            {% for error in forms.password.errors %}
-          <span style="color:red;">
-
-              {{error}}
-          </span>
-          {% endfor %}
-
-      </p>
+<!--          {{forms.username.label}}-->
+<!--          {{forms.username(size=32)}}-->
 
 
 
-        <p>
-            <input type="submit" value="Register" class="btn btn-success">
+<!--          {% for error in forms.username.errors %}-->
+<!--          <span style="color:red;">-->
 
-        </p>
+<!--              {{error}}-->
+<!--          </span>-->
+<!--          {% endfor %}-->
+
+<!--      </p>-->
+
+
+<!--         <p>-->
+
+<!--          {{forms.password.label}}-->
+<!--          {{forms.password(size=32)}}-->
+
+
+<!--            {% for error in forms.password.errors %}-->
+<!--          <span style="color:red;">-->
+
+<!--              {{error}}-->
+<!--          </span>-->
+<!--          {% endfor %}-->
+
+<!--      </p>-->
 
 
 
-    </form>
+<!--        <p>-->
+<!--            <input type="submit" value="Register" class="btn btn-success">-->
+
+<!--        </p>-->
 
 
 
-</div>
+<!--    </form>-->
 
-{% endblock %}
+
+
+<!--</div>-->
+
+<!--{% endblock %}-->
