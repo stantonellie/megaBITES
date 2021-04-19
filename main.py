@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 import sqlalchemy.orm
 from database_setup import Base, Blog
 
+
 engine = create_engine("mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404'
 Base.metadata.bind = engine
