@@ -1,13 +1,27 @@
 {% extends 'blog_base.html' %}
 
-
-{% block title %} Home {% endblock %}
+{% block title %} Login {% endblock %}
 
 {% block body %}
 
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Login</h1>
+            <span class="subheading">the coders who cook</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
 <div class="container">
     <h1>Login Page - Welcome</h1>
-<h3>WTF</h3>
+<h3>Please login using your credentials</h3>
 
     <br>
     <br>
@@ -44,12 +58,12 @@
 
       <p>
 
-          {{form.username.label}}
-          {{form.username(size=32)}}
+          {{forms.username.label}}
+          {{forms.username(size=32)}}
 
 
 
-          {% for error in form.username.errors %}
+          {% for error in forms.username.errors %}
           <span style="color:red;">
 
               {{error}}
@@ -61,11 +75,11 @@
 
          <p>
 
-          {{form.password.label}}
-          {{form.password(size=32)}}
+          {{forms.password.label}}
+          {{forms.password(size=32)}}
 
 
-            {% for error in form.password.errors %}
+            {% for error in forms.password.errors %}
           <span style="color:red;">
 
               {{error}}
