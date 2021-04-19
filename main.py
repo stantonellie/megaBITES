@@ -13,13 +13,24 @@ Base.metadata.bind = engine
 DBSession = sqlalchemy.orm.sessionmaker(bind=engine)
 session = DBSession()
 
+
 @app.route('/')
-def index():
-    return render_template("index.html", posts=session.query(Blog).all())
+def home():
+    return render_template("home.html", posts=session.query(Blog).limit(5).all())
+
 
 @app.route('/post/<post>')
 def post(post):
     return render_template("post.html", post=session.query(Blog).filter_by(post_id=post).first())
+
+@app.route('/recipes/')
+def recipes():
+    return render_template("recipes.html")
+
+@app.route('/contact/')
+def contact():
+    return render_template("contact.html")
+
 
 
 # @app.route( '/' )
