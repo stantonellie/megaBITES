@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, MetaData, DateTime
+from sqlalchemy import Column, Integer, String, MetaData, DateTime, Text
 from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy import create_engine
@@ -13,8 +13,9 @@ class Blog(Base):
     post_id = Column(Integer, primary_key=True)
     blog_author = Column(String, nullable=False)
     blog_title = Column(String, nullable=False)
+    blog_subtitle = Column(String, nullable=False)
     post_date = Column(DateTime, nullable=False)
-    content = Column(String, nullable=False)
+    content = Column(Text, nullable=False)
     comments = Column(Integer, nullable=False)
     likes = Column(Integer, nullable=False)
 
