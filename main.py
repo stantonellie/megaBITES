@@ -64,7 +64,7 @@ def logout():
     response.delete_cookie('mBuID')
     return response
 
-@app.route( '/posts/new/', methods=['GET', 'POST'] )
+@app.route( '/posts/new/', methods=['GET', 'POST'])
 def newPost():
     if request.method == 'POST':
          newPost = Post(title=request.form['name'], author=request.form['author'], post_date=request.form['post_date'])
