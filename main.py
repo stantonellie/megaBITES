@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, url_for, make_response
 from flask import request
 from sqlalchemy import create_engine
 import sqlalchemy.orm
@@ -34,11 +34,6 @@ def contact():
     return render_template("contact.html")
 
 
-def dump(obj):
-    for attr in dir(obj):
-        print("obj.%s = %r" % (attr, getattr(obj, attr)))
-
-
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
     email = request.form.get('email')
@@ -48,17 +43,36 @@ def subscribe():
         return render_template("thank_you_for_subscribing.html")
     except:
         session.rollback()
-        return render_template("error.html", email=email, error="Email is already registered")
+        return render_template("error.html", email=email, error="uh oh... This email is already registered!")
 
 
-# @app.route('/login/')
-# def login():
-#     return render_template("login.html")
-#
-# @app.route('/registration/')
-# def registration():
-#     return render_template("registration.html")
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            response = make_response(redirect(url_for('login')))
+            response.set_cookie('mBuID', '9268d0b2d17670598c70045b0c7abf38')
+            return response
+    return render_template('login.html', error=error)
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    response = make_response(redirect(url_for('home')))
+    response.delete_cookie('mBuID')
+    return response
+
+@app.route( '/posts/new/', methods=['GET', 'POST'] )
+def newPost():
+    if request.method == 'POST':
+         newPost = Post(title=request.form['name'], author=request.form['author'], post_date=request.form['post_date'])
+         session.add( newPost )
+         session.commit()
+         return redirect(url_for('showPosts'))
+    else:
+         return render_template('createpost.html')
 
 # @app.route( '/' )
 # @app.route( '/blog' )
