@@ -1,90 +1,42 @@
-<!--{% extends 'blog_base.html' %}-->
+{% extends 'blog_base.html' %}
 
-<!--{% block title %} Login {% endblock %}-->
+{% block title %} Home {% endblock %}
 
-<!--{% block body %}-->
+{% block body %}
 
-<!--<div class="container">-->
-<!--    <h1>Login Page - Welcome</h1>-->
-<!--<h3>Please login using your credentials</h3>-->
+<!-- Page Header -->
+<header class="masthead"
+        style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Welcome Back!</h1>
+                    <span class="subheading">Your very own megaBITES account.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-<!--    <br>-->
-<!--    <br>-->
-<!--    <hr>-->
+    <div class="container">
 
-<!--    {% with messages = get_flashed_messages() %}-->
+    {% if 'mBuID' in request.cookies %}
+    <form action="/logout" method="post">
+        <input class="btn btn-default" type="submit" value="Logout">
+      </form>
+    {% else %}
+      <br>
+      <form action="/login" method="post">
+        <input type="text" placeholder="Username" name="username">
+         <input type="password" placeholder="Password" name="password">
+        <input class="btn btn-default" type="submit" value="Login">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    {% endif %}
+    </div>
 
-<!--    {% if messages %}-->
-
-<!--    {% for message in messages %}-->
-
-<!--       <div class="alert alert-success alert-dismissable" role="alert">-->
-<!--        <button type="button" class="close" data-dismiss="alert" aria-label="close">-->
-<!--            <span aria-hidden="true">X</span>-->
-<!--        </button>-->
-
-<!--             {{message}}-->
-
-<!--    </div>-->
-
-
-
-
-<!--    {% endfor  %}-->
-
-<!--    {% endif %}-->
-
-<!--    {% endwith %}-->
-
-<!--    <h1>Please Login</h1>-->
-
-<!--    <form action="" method="post" novalidate>-->
-<!--      {{form.csrf_token}}-->
-
-<!--      <p>-->
-
-<!--          {{forms.username.label}}-->
-<!--          {{forms.username(size=32)}}-->
-
-
-
-<!--          {% for error in forms.username.errors %}-->
-<!--          <span style="color:red;">-->
-
-<!--              {{error}}-->
-<!--          </span>-->
-<!--          {% endfor %}-->
-
-<!--      </p>-->
-
-
-<!--         <p>-->
-
-<!--          {{forms.password.label}}-->
-<!--          {{forms.password(size=32)}}-->
-
-
-<!--            {% for error in forms.password.errors %}-->
-<!--          <span style="color:red;">-->
-
-<!--              {{error}}-->
-<!--          </span>-->
-<!--          {% endfor %}-->
-
-<!--      </p>-->
-
-
-<!--        <p>-->
-<!--            <input type="submit" value="Login" class="btn btn-success">-->
-
-<!--        </p>-->
-
-
-
-<!--    </form>-->
-
-
-
-<!--</div>-->
-
-<!--{% endblock %}-->
+{% endblock %}
