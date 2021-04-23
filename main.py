@@ -18,6 +18,10 @@ session = DBSession()
 def home():
     return render_template("home.html", posts=session.query(Blog).limit(5).all())
 
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
 
 @app.route('/post/<post>')
 def post(post):
