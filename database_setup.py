@@ -10,7 +10,7 @@ meta = MetaData()
 class Blog(Base):
     __tablename__ = 'Blog'
 
-    post_id = Column(Integer, primary_key=True)
+    post_id = Column(Integer, primary_key=True, autoincrement=True)
     blog_author = Column(String, nullable=False)
     blog_title = Column(String, nullable=False)
     blog_subtitle = Column(String, nullable=False)
@@ -25,6 +25,14 @@ class Subscriber(Base):
 
     id = Column(Integer, primary_key=True)
     email = Column(String, nullable=False)
+
+class User(Base):
+    __tablename__ = 'User'
+
+    id = Column(Integer, primary_key=True)
+    email = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    is_admin = Column(String, nullable=False)
 
 
 # creates a create_engine instance - insert our password and team

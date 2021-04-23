@@ -20,13 +20,16 @@ p a {
 }
 
 h1,
-h2,
+h2 {
+  font-weight: 800;
+  font-family: 'Josefin Slab', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 h3,
 h4,
 h5,
 h6 {
-  font-weight: 800;
-  font-family: 'Josefin Slab', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 200;
 }
 
 a {

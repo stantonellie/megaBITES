@@ -1,24 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Add a Blog Post</h1>
-<form action="#" method="post">
-   <div class="form-group">
-       <label for="name">Blog Title:</label>
-       <input type="text" maxlength="100" name="name" placeholder="title of the post">
+{% extends 'blog_base.html' %}
 
-       <label for="author">Author:</label>
-       <input maxlength="100" name="author" placeholder="Author of the blog post">
+{% block title %} Create new {% endblock %}
 
-       <label for="post_date">Date created:</label>
-       <input maxlength="100" name="genre" placeholder="Date of the post">
+{% block body %}
 
-       <button type="submit">Create</button>
-   </div>
-</form>
-</body>
-</html>
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>megaBITES</h1>
+            <span class="subheading">the coders who cook</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+  <!-- Main Content -->
+        <div class="container">
+            <h2>Create Post</h2>
+            <form id="form" action="/post/create" method="post">
+                <div class="form-row">
+                  <div class="col-7 input-group">
+                      <div class="input-group-prepend">
+                    <span class="input-group-text">Title</span>
+                  </div>
+                    <input name="title" type="text" class="form-control" aria-label="Title">
+                  </div>
+                  <div class="col input-group">
+                                        <div class="input-group-prepend">
+                    <span class="input-group-text">Subtitle</span>
+                  </div>
+                    <input name="subtitle" type="text" class="form-control" aria-label="Subtitle">
+                  </div>
+                </div>
+                <br>
+                <div class="input-group">
+                  <textarea rows="30" name="content" class="form-control" aria-label="Content"></textarea>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+{% endblock %}

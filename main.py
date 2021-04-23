@@ -2,7 +2,8 @@ from flask import Flask, render_template, redirect, url_for, make_response
 from flask import request
 from sqlalchemy import create_engine
 import sqlalchemy.orm
-from database_setup import Base, Blog, Subscriber
+from database_setup import Base, Blog, Subscriber, User
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -18,6 +19,7 @@ session = DBSession()
 def home():
     return render_template("home.html", posts=session.query(Blog).limit(5).all())
 
+
 @app.route('/about')
 def about():
     return render_template("about.html")
@@ -26,6 +28,39 @@ def about():
 @app.route('/post/<post>')
 def post(post):
     return render_template("post.html", post=session.query(Blog).filter_by(post_id=post).first())
+
+
+@app.route('/post/create', methods=['GET', 'POST'])
+def create_post():
+    if request.cookies['admin'] != 'yes':
+        return redirect('/')
+    if request.method == 'GET':
+        return render_template("create_post.html")
+    else:
+        blog = Blog(
+            blog_author=request.cookies['email'],
+            blog_title=request.form['title'],
+            blog_subtitle=request.form['subtitle'],
+            post_date=datetime.now(),
+            content=request.form['content'],
+            comments=0,
+            likes=0
+        )
+
+        session.add(blog)
+        session.commit()
+
+        return redirect('/')
+
+
+@app.route('/post/<post>/delete')
+def delete_post(post):
+    if request.cookies['admin'] != 'yes':
+        return redirect('/post/' + post)
+    it = session.query(Blog).filter_by(post_id=post).first()
+    session.delete(it)
+    session.commit()
+    return redirect('/')
 
 
 @app.route('/recipes/')
@@ -50,33 +85,38 @@ def subscribe():
         return render_template("error.html", email=email, error="uh oh... This email is already registered!")
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-            error = 'Invalid Credentials. Please try again.'
-        else:
-            response = make_response(redirect(url_for('login')))
-            response.set_cookie('mBuID', '9268d0b2d17670598c70045b0c7abf38')
-            return response
-    return render_template('login.html', error=error)
+    user = session.query(User) \
+        .filter_by(email=request.form['email']) \
+        .first()
+    if user.password == request.form['password']:
+        response = make_response(redirect(url_for('home')))
+        response.set_cookie('email', user.email)
+        response.set_cookie('admin', user.is_admin)
+        return response
+    else:
+        return redirect('/')
 
-@app.route('/logout', methods=['POST'])
+
+@app.route('/logout')
 def logout():
     response = make_response(redirect(url_for('home')))
-    response.delete_cookie('mBuID')
+    response.delete_cookie('email')
+    response.delete_cookie('admin')
     return response
 
-@app.route( '/posts/new/', methods=['GET', 'POST'])
+
+@app.route('/posts/new/', methods=['GET', 'POST'])
 def newPost():
     if request.method == 'POST':
-         newPost = Post(title=request.form['name'], author=request.form['author'], post_date=request.form['post_date'])
-         session.add( newPost )
-         session.commit()
-         return redirect(url_for('showPosts'))
+        newPost = Post(title=request.form['name'], author=request.form['author'], post_date=request.form['post_date'])
+        session.add(newPost)
+        session.commit()
+        return redirect(url_for('showPosts'))
     else:
-         return render_template('createpost.html')
+        return render_template('createpost.html')
+
 
 # @app.route( '/' )
 # @app.route( '/blog' )

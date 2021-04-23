@@ -22,6 +22,13 @@
 
 <!-- Main Content -->
 <div class="container">
+
+    {% if request.cookies.get('admin') == 'yes' %}
+    <form action="/post/create">
+      <button class="btn"><i class="fa fa-plus">Add new post</i></button>
+    </form>
+   {% endif %}
+
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             {% for post in posts %}
@@ -58,7 +65,7 @@
         <h4>Love the Coders who Cook?</h4>
     </div>
 
-    <form class="form-inline" action="{{ url_for('subscribe') }}" method="post">
+    <form class="form-inline d-flex justify-content-center" action="{{ url_for('subscribe') }}" method="post">
         <div class="form-group mx-sm-3 mb-2">
         <label for="email" class="sr-only">Email</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Email">
@@ -67,29 +74,6 @@
             <button type="submit" value="Subscribe" class="btn btn-primary mb-2">Subscribe!</button>
     </div>
     </form>
-
-
-    <div class="row justify-content-center">
-        <h3>Already a megaBITES member?</h3>
-    </div>
-        <div class="container">
-
-    {% if 'mBuID' in request.cookies %}
-    <form action="/logout" method="post">
-        <input class="btn btn-primary mb-2" type="submit" value="Logout">
-      </form>
-    {% else %}
-      <br>
-      <form action="/login" method="post">
-        <input type="text" placeholder="Username" name="username">
-         <input type="password" placeholder="Password" name="password">
-        <input class="btn btn-primary mb-2" type="submit" value="Login!">
-      </form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-    {% endif %}
-    </div>
 
 </footer>
 

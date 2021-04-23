@@ -26,6 +26,8 @@
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/clean-blog.css') }}" rel="stylesheet">
 
+    {% block style %} {% endblock %}
+
 </head>
 
 <body>
@@ -54,6 +56,28 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/contact">Contact Us</a>
                 </li>
+                {% if 'email' in request.cookies %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                {% else %}
+                <div class="dropdown">
+                  <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Login
+                  </button>
+                  <form class="dropdown-menu p-4 w-25" action="login" method="post">
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input name="email" type="email" class="form-control" id="email" placeholder="email@example.com" value="elliestanton@ymail.com">
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input name="password" type="password" class="form-control" id="password" placeholder="Password" value="vinny">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                  </form>
+                </div>
+                {% endif %}
             </ul>
         </div>
     </div>

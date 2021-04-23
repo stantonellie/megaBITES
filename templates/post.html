@@ -23,6 +23,11 @@
 
   <!-- Main Content -->
 <div class="container">
+  {% if request.cookies.get('admin') == 'yes' %}
+    <form action="/post/{{post.post_id}}/delete">
+      <button class="btn"><i class="fa fa-trash"></i></button>
+    </form>
+   {% endif %}
     <p>{{post.content}}</p>
   </div>
 
