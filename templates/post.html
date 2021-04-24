@@ -30,7 +30,16 @@
       <button class="btn"><i class="fa fa-trash"></i>Delete</button>
     </form>
     </div>
+  <hr>
    {% endif %}
+  <div class="justify-content-end">
+    <form action="/post/{{post.post_id}}/like">
+      <button class="btn"><i class="fa fa-heart"></i>Like</button>
+    </form>
+  </div>
+  <h1>{{post.blog_title|safe}}</h1>
+  <h5>{{post.blog_subtitle|safe}}</h5>
+  <hr>
    {{post.content|safe}}
   </div>
 

@@ -78,6 +78,24 @@ def delete_post(post):
     return redirect('/')
 
 
+@app.route('/post/<post>/like')
+def like_post(post):
+    # 1. Fetch the post
+    # 2. increase like by 1
+    # 3. commit to the session
+    return redirect('/post/' + post)
+
+
+@app.route('/post/<post>/comment')
+def comment_post(post):
+    # 1. Fetch the post
+    # 2. create a comment from the request.form
+    # 3. set the author of the comment to the user id of login user
+    # 4. set the date of the comment to now
+    # 5. commit to the session
+    return redirect('/post/' + post)
+
+
 @app.route('/recipes/')
 def recipes():
     return render_template("recipes.html")
@@ -102,11 +120,16 @@ def subscribe():
 
 @app.route('/login', methods=['POST'])
 def login():
+    return try_login(request.form['email'], request.form['password'])
+
+
+def try_login(email, password):
     user = session.query(User) \
-        .filter_by(email=request.form['email']) \
+        .filter_by(email=email) \
         .first()
-    if user.password == request.form['password']:
+    if user.password == password:
         response = make_response(redirect(url_for('home')))
+        response.set_cookie('user_id', user.id)
         response.set_cookie('email', user.email)
         response.set_cookie('admin', user.is_admin)
         return response
@@ -122,15 +145,20 @@ def logout():
     return response
 
 
-@app.route('/posts/new/', methods=['GET', 'POST'])
-def newPost():
-    if request.method == 'POST':
-        newPost = Post(title=request.form['name'], author=request.form['author'], post_date=request.form['post_date'])
-        session.add(newPost)
-        session.commit()
-        return redirect(url_for('showPosts'))
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template("registration.html")
     else:
-        return render_template('createpost.html')
+        user = User(
+            email=request.form['email'],
+            password=request.form['password'],
+            is_admin="no"
+        )
+        session.add(user)
+        session.commit()
+        return try_login(request.form['email'], request.form['password'])
+
 
 if __name__ == '__main__':
     app.debug = True

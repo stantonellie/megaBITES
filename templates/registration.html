@@ -1,91 +1,68 @@
-<!--{% extends 'blog_base.html' %}-->
 
-<!--{% block title %} Registration {% endblock %}-->
+{% extends 'blog_base.html' %}
 
-<!--{% block body %}-->
+{% block title %} Recipes {% endblock %}
 
-<!--<div class="container">-->
-<!--    <h1>Registration Page - Welcome</h1>-->
-<!--<h3>Please register to login</h3>-->
+{% block body %}
 
-<!--    <br>-->
-<!--    <br>-->
-<!--    <hr>-->
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Contact Us</h1>
+            <span class="subheading">the coders who cook</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<!--    {% with messages = get_flashed_messages() %}-->
+  <!-- Main Content -->
 
-<!--    {% if messages %}-->
+<div class="container">
+    <form class="form-horizontal" action='' method="POST">
+  <fieldset>
+    <div id="legend">
+      <legend class="">Register</legend>
+    </div>
+    <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="email">E-mail</label>
+      <div class="controls">
+        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+        <p class="help-block">Please provide your E-mail</p>
+      </div>
+    </div>
 
-<!--    {% for message in messages %}-->
+    <div class="control-group">
+      <!-- Password-->
+      <label class="control-label" for="password">Password</label>
+      <div class="controls">
+        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+        <p class="help-block">Password should be at least 4 characters</p>
+      </div>
+    </div>
 
-<!--       <div class="alert alert-success alert-dismissable" role="alert">-->
-<!--        <button type="button" class="close" data-dismiss="alert" aria-label="close">-->
-<!--            <span aria-hidden="true">X</span>-->
-<!--        </button>-->
+    <div class="control-group">
+      <!-- Password -->
+      <label class="control-label"  for="password_confirm">Password (Confirm)</label>
+      <div class="controls">
+        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+        <p class="help-block">Please confirm password</p>
+      </div>
+    </div>
 
-<!--             {{message}}-->
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button class="btn btn-success">Register</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+</div>
 
-<!--    </div>-->
-
-
-
-
-<!--    {% endfor  %}-->
-
-<!--    {% endif %}-->
-
-<!--    {% endwith %}-->
-
-<!--    <h1>Please Register</h1>-->
-
-<!--    <form action="" method="post" novalidate>-->
-<!--      {{forms.csrf_token}}-->
-
-<!--      <p>-->
-
-<!--          {{forms.username.label}}-->
-<!--          {{forms.username(size=32)}}-->
-
-
-
-<!--          {% for error in forms.username.errors %}-->
-<!--          <span style="color:red;">-->
-
-<!--              {{error}}-->
-<!--          </span>-->
-<!--          {% endfor %}-->
-
-<!--      </p>-->
-
-
-<!--         <p>-->
-
-<!--          {{forms.password.label}}-->
-<!--          {{forms.password(size=32)}}-->
-
-
-<!--            {% for error in forms.password.errors %}-->
-<!--          <span style="color:red;">-->
-
-<!--              {{error}}-->
-<!--          </span>-->
-<!--          {% endfor %}-->
-
-<!--      </p>-->
-
-
-
-<!--        <p>-->
-<!--            <input type="submit" value="Register" class="btn btn-success">-->
-
-<!--        </p>-->
-
-
-
-<!--    </form>-->
-
-
-
-<!--</div>-->
-
-<!--{% endblock %}-->
+{% endblock %}
