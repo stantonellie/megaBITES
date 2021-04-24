@@ -20,9 +20,9 @@
     </div>
 </header>
 
+<!-- Page Header -->
     <div class="container">
-
-    {% if 'mBuID' in request.cookies %}
+        {% if 'mBuID' in request.cookies %}
     <form action="/logout" method="post">
         <input class="btn btn-default" type="submit" value="Logout">
       </form>

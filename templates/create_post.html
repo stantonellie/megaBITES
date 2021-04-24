@@ -1,50 +1,49 @@
 {% extends 'blog_base.html' %}
 
-{% block title %} Create new {% endblock %}
+{% block title %} {{ 'Editing' if post is defined else 'Create new' }} {% endblock %}
 
 {% block body %}
 
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+<!-- Page Header -->
+<header class="masthead"
+        style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
     <div class="overlay"></div>
     <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>megaBITES</h1>
-            <span class="subheading">the coders who cook</span>
-          </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>megaBITES</h1>
+                    <span class="subheading">the coders who cook</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
+</header>
 
-
-
-  <!-- Main Content -->
-        <div class="container">
-            <h2>Create Post</h2>
-            <form id="form" action="/post/create" method="post">
-                <div class="form-row">
-                  <div class="col-7 input-group">
-                      <div class="input-group-prepend">
+<!-- Main Content -->
+<div class="container">
+    <h2>{{ 'Editing post' if post is defined else 'Create post' }}</h2>
+    <form id="form" action="{{ '/post/' + post.post_id|string + '/edit' if post is defined else '/post/create' }}" method="post">
+        <div class="form-row">
+            <div class="col-7 input-group">
+                <div class="input-group-prepend">
                     <span class="input-group-text">Title</span>
-                  </div>
-                    <input name="title" type="text" class="form-control" aria-label="Title">
-                  </div>
-                  <div class="col input-group">
-                                        <div class="input-group-prepend">
+                </div>
+                <input name="title" type="text" class="form-control" aria-label="Title" value="{{post.blog_title if post is defined}}">
+            </div>
+            <div class="col input-group">
+                <div class="input-group-prepend">
                     <span class="input-group-text">Subtitle</span>
-                  </div>
-                    <input name="subtitle" type="text" class="form-control" aria-label="Subtitle">
-                  </div>
                 </div>
-                <br>
-                <div class="input-group">
-                  <textarea rows="30" name="content" class="form-control" aria-label="Content"></textarea>
-                </div>
-                <br>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                <input name="subtitle" type="text" class="form-control" aria-label="Subtitle" value="{{post.blog_subtitle if post is defined}}">
+            </div>
         </div>
+        <br>
+        <div class="input-group">
+            <textarea rows="30" name="content" class="form-control" aria-label="Content">{{post.content if post is defined}}</textarea>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 {% endblock %}

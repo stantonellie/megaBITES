@@ -19,14 +19,24 @@
     </div>
   </header>
 
-
-
-  <!-- Main Content -->
+<!-- Main Content -->
 <div class="container">
   {% if request.cookies.get('admin') == 'yes' %}
-    <form action="/post/{{post.post_id}}/delete">
-      <button class="btn"><i class="fa fa-trash"></i></button>
-    </form>
+  <div class="row">
+    <div class="col col-auto float-right" style="display: flex;">
+      <form action="/post/{{post.post_id}}/edit">
+        <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
+      </form>
+      <form action="/post/{{post.post_id}}/delete">
+         <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
    {% endif %}
    {{post.content|safe}}
   </div>

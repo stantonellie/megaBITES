@@ -53,6 +53,21 @@ def create_post():
         return redirect('/')
 
 
+@app.route('/post/<post>/edit', methods=['GET', 'POST'])
+def edit_post(post):
+    if request.cookies['admin'] != 'yes':
+        return redirect('/')
+    if request.method == 'GET':
+        return render_template("create_post.html", post=session.query(Blog).filter_by(post_id=post).first())
+    else:
+        blog = session.query(Blog).filter_by(post_id=post).first()
+        blog.blog_title = request.form['title']
+        blog.blog_subtitle = request.form['subtitle']
+        blog.content = request.form['content']
+        session.commit()
+        return redirect('/post/' + post)
+
+
 @app.route('/post/<post>/delete')
 def delete_post(post):
     if request.cookies['admin'] != 'yes':
@@ -116,50 +131,6 @@ def newPost():
         return redirect(url_for('showPosts'))
     else:
         return render_template('createpost.html')
-
-
-# @app.route( '/' )
-# @app.route( '/blog' )
-# def showBooks():
-#     books = session.query( Book ).all()
-#     return render_template( "books.html", books=books )
-#
-#
-# # This will let us Create a new book and save it in our database
-# @app.route( '/books/new/', methods=['GET', 'POST'] )
-# def newBook():
-#     if request.method == 'POST':
-#         newBook = Book( title=request.form['name'], author=request.form['author'], genre=request.form['genre'] )
-#         session.add( newBook )
-#         session.commit()
-#         return redirect( url_for( 'showBooks' ) )
-#     else:
-#         return render_template( 'createbook.html' )
-#
-#
-# # This will let us Update our books and save it in our database
-# @app.route( "/books/<int:book_id>/edit/", methods=['GET', 'POST'] )
-# def editBook(book_id):
-#     editedBook = session.query( Book ).filter_by( id=book_id ).one()
-#     if request.method == 'POST':
-#         if request.form['name']:
-#             editedBook.title = request.form['name']
-#             return redirect( url_for( 'showBooks' ) )
-#     else:
-#         return render_template( 'editBook.html', book=editedBook )
-#
-#
-# # This will let us Delete our book
-# @app.route( '/books/<int:book_id>/delete/', methods=['GET', 'POST'] )
-# def deleteBook(book_id):
-#     bookToDelete = session.query( Book ).filter_by( id=book_id ).one()
-#     if request.method == 'POST':
-#         session.delete( bookToDelete )
-#         session.commit()
-#         return redirect( url_for( 'showBooks', book_id=book_id ) )
-#     else:
-#         return render_template( 'deleteBook.html', book=bookToDelete )
-#
 
 if __name__ == '__main__':
     app.debug = True
