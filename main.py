@@ -17,7 +17,7 @@ session = DBSession()
 
 @app.route('/')
 def home():
-    return render_template("home.html", posts=session.query(Blog).limit(5).all())
+    return render_template("home.html", posts=session.query(Blog).all())
 
 
 @app.route('/about')
