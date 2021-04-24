@@ -28,7 +28,7 @@
       <button class="btn"><i class="fa fa-trash"></i></button>
     </form>
    {% endif %}
-    <p>{{post.content}}</p>
+   {{post.content|safe}}
   </div>
 
 {% endblock %}
