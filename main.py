@@ -129,7 +129,6 @@ def try_login(email, password):
         .first()
     if user.password == password:
         response = make_response(redirect(url_for('home')))
-        response.set_cookie('user_id', user.id)
         response.set_cookie('email', user.email)
         response.set_cookie('admin', user.is_admin)
         return response
