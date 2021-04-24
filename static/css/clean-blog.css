@@ -63,6 +63,11 @@ blockquote {
   border-bottom-left-radius: 5px;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 ::-moz-selection {
   color: #fff;
   background: #0085A1;

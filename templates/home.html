@@ -42,7 +42,7 @@
                     </h6>
                 </a>
                 <p class="post-meta">Posted by
-                    <a href="mailto:{{post.blog_author}}">{{post.blog_author}}</a>
+                    {{post.blog_author}}
                     on {{post.post_date}}</p>
             </div>
             <hr>
@@ -58,11 +58,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <h4>Mouthwatering recipes and cooking hacks right to your inbox!</h4>
-    </div>
-
-    <div class="row justify-content-center">
-        <h4>Love the Coders who Cook?</h4>
+        <h5>Mouthwatering recipes and cooking hacks right to your inbox!</h5>
     </div>
 
     <form class="form-inline d-flex justify-content-center" action="{{ url_for('subscribe') }}" method="post">

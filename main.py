@@ -78,22 +78,23 @@ def delete_post(post):
     return redirect('/')
 
 
-@app.route('/post/<post>/like')
-def like_post(post):
-    # 1. Fetch the post
-    # 2. increase like by 1
-    # 3. commit to the session
-    return redirect('/post/' + post)
+@app.route('/post/<id>/like')
+def like_post(id):
+    post = session.query(Blog).filter_by(post_id=id).first()
+    post.likes += 1
+    session.commit()
+    return redirect('/post/' + id)
 
 
-@app.route('/post/<post>/comment')
-def comment_post(post):
+@app.route('/post/<id>/comment')
+def comment_post(id):
+    post = session.query(Blog).filter_by(post_id=id).first()
     # 1. Fetch the post
     # 2. create a comment from the request.form
     # 3. set the author of the comment to the user id of login user
     # 4. set the date of the comment to now
     # 5. commit to the session
-    return redirect('/post/' + post)
+    return redirect('/post/' + id)
 
 
 @app.route('/recipes/')
@@ -131,6 +132,7 @@ def try_login(email, password):
         response = make_response(redirect(url_for('home')))
         response.set_cookie('email', user.email)
         response.set_cookie('admin', user.is_admin)
+        response.set_cookie('is_logged_in', 'yes')
         return response
     else:
         return redirect('/')

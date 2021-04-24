@@ -33,6 +33,7 @@ class User(Base):
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
     is_admin = Column(String, nullable=False)
+    name = Column(String, nullable=False)
 
 
 # creates a create_engine instance - insert our password and team
