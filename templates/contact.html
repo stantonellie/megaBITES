@@ -1,6 +1,6 @@
 {% extends 'blog_base.html' %}
 
-{% block title %} Contact {% endblock %}
+{% block title %} Contact Us {% endblock %}
 
 {% block body %}
 
@@ -21,23 +21,43 @@
 
   <!-- Main Content -->
 {% block content %}
-  <form action="{{ url_for('contact') }}" method=post>
-    {{ form.hidden_tag() }}
-
-    {{ form.name.label }}
-    {{ form.name }}
-
-    {{ form.email.label }}
-    {{ form.email }}
-
-    {{ form.subject.label }}
-    {{ form.subject }}
-
-    {{ form.message.label }}
-    {{ form.message }}
-
-    {{ form.submit }}
-  </form>
-
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h3>Contact us</h3>
+<!-- Just here i use "url_for" to call the function get_contact.
+         This function return the html code of our contact page-->
+            <form action="{{ url_for('contact') }}" method=post>
+                <div>
+            <!-- name forms -->
+                    <p>
+                {{ form.name.label }} <br>
+                {{ form.name(placeholder='Your Name...') }}
+                    </p>
+            <!-- email forms -->
+                    <p>
+                {{ form.email.label }} <br>
+                {{ form.email(placeholder='Your e-mail...') }}
+                    </p>
+            <!-- Subject of your request -->
+                    <p>
+                {{ form.subject.label }}<br>
+                {{form.subject(placeholder='Your subject ...')}}
+                    </p>
+            <!-- Content of your request -->
+                    <p>
+                {{ form.message.label }}<br>
+                {{ form.message(placeholder='write your request ...') }}
+                    </p>
+            <!-- Submit button -->
+                    <p>
+                {{ form.submit }}
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
 {% endblock %}
