@@ -21,22 +21,22 @@
 </header>
 
 <!-- Page Header -->
-    <div class="container">
-        {% if 'mBuID' in request.cookies %}
+<div class="container">
+    {% if 'mBuID' in request.cookies %}
     <form action="/logout" method="post">
         <input class="btn btn-default" type="submit" value="Logout">
-      </form>
+    </form>
     {% else %}
-      <br>
-      <form action="/login" method="post">
+    <br>
+    <form action="/login" method="post">
         <input type="text" placeholder="Username" name="username">
-         <input type="password" placeholder="Password" name="password">
+        <input type="password" placeholder="Password" name="password">
         <input class="btn btn-default" type="submit" value="Login">
-      </form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-    {% endif %}
-    </div>
+    </form>
+    {% if error %}
+    <p class="error"><strong>Error:</strong> {{ error }}
+        {% endif %}
+        {% endif %}
+</div>
 
 {% endblock %}

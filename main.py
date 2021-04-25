@@ -28,12 +28,13 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/post/<post>')
-def post(post):
+@app.route('/post/<post_id>')
+def post(post_id):
+    print(len(session.query(Comment).all()))
     return render_template(
         "post.html",
-        post=session.query(Blog).filter_by(post_id=post).first(),
-        comments=session.query(Comment).filter_by(post_id=post).all()
+        post=session.query(Blog).filter_by(post_id=post_id).first(),
+        comments=session.query(Comment).filter_by(post_id=post_id).all()
     )
 
 
@@ -51,7 +52,8 @@ def create_post():
             post_date=datetime.now(),
             content=request.form['content'],
             comments=0,
-            likes=0
+            likes=0,
+            masthead=request.form['masthead']
         )
 
         session.add(blog)
@@ -71,6 +73,7 @@ def edit_post(post):
         blog.blog_title = request.form['title']
         blog.blog_subtitle = request.form['subtitle']
         blog.content = request.form['content']
+        blog.masthead = request.form['masthead']
         session.commit()
         return redirect('/post/' + post)
 
@@ -188,3 +191,4 @@ def register():
 if __name__ == '__main__':
     app.debug = True
     app.run(host='localhost', port=5555)
+

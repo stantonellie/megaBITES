@@ -23,20 +23,30 @@
 <!-- Main Content -->
 <div class="container">
     <h2>{{ 'Editing post' if post is defined else 'Create post' }}</h2>
-    <form id="form" action="{{ '/post/' + post.post_id|string + '/edit' if post is defined else '/post/create' }}" method="post">
+    <form id="form" action="{{ '/post/' + post.post_id|string + '/edit' if post is defined else '/post/create' }}"
+          method="post">
         <div class="form-row">
             <div class="col-7 input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Title</span>
                 </div>
-                <input name="title" type="text" class="form-control" aria-label="Title" value="{{post.blog_title if post is defined}}">
+                <input name="title" type="text" class="form-control" aria-label="Title"
+                       value="{{post.blog_title if post is defined}}">
             </div>
             <div class="col input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Subtitle</span>
                 </div>
-                <input name="subtitle" type="text" class="form-control" aria-label="Subtitle" value="{{post.blog_subtitle if post is defined}}">
+                <input name="subtitle" type="text" class="form-control" aria-label="Subtitle"
+                       value="{{post.blog_subtitle if post is defined}}">
             </div>
+        </div>
+        <div class="col input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Image</span>
+            </div>
+            <input name="masthead" type="text" class="form-control" aria-label="Subtitle"
+                   value="{{post.masthead or '' if post is defined}}">
         </div>
         <br>
         <div class="input-group">

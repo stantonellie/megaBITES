@@ -18,6 +18,7 @@ class Blog(Base):
     content = Column(Text, nullable=False)
     comments = Column(Integer, nullable=False)
     likes = Column(Integer, nullable=False)
+    masthead = Column(String, nullable=False)
 
 
 class Subscriber(Base):
@@ -36,7 +37,7 @@ class User(Base):
     name = Column(String, nullable=False)
 
 class Comment(Base):
-        __tablename__ = 'Comment'
+        __tablename__ = 'Comments'
         post_id = Column(Integer, primary_key=True)
         author = Column(String, nullable=False)
         date = Column(DateTime, nullable=False)

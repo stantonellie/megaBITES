@@ -44,10 +44,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+                <div class="search-container">
+                    <form action="/action_page.php">
+                        <input type="text" placeholder="Search.." name="search">
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
                 <li class="nav-item">
@@ -62,30 +68,28 @@
                     <a class="nav-link" href="/register">Register</a>
                 </li>
                 <div class="dropdown">
-                  <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Login
-                  </button>
-                  <form class="dropdown-menu p-4 w-25" action="/login" method="post">
-                    <div class="form-group">
-                      <label for="email">Email address</label>
-                      <input name="email" type="email" class="form-control" id="email" placeholder="email@example.com">
-                    </div>
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input name="password" type="password" class="form-control" id="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                  </form>
-                </div>
-                <div class="search-container">
-                    <form action="/action_page.php">
-                        <input type="text" placeholder="Search.." name="search">
-                        <button type="submit">Submit</button>
+                    <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Login
+                    </button>
+                    <form class="dropdown-menu p-4 w-25" action="/login" method="post">
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input name="email" type="email" class="form-control" id="email"
+                                   placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input name="password" type="password" class="form-control" id="password"
+                                   placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
                     </form>
                 </div>
                 {% endif %}
             </ul>
+
         </div>
+
     </div>
 </nav>
 

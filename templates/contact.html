@@ -4,47 +4,49 @@
 
 {% block body %}
 
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+<!-- Page Header -->
+<header class="masthead"
+        style="background-image: url('https://trello-attachments.s3.amazonaws.com/6055f8e6be992c7aa92e5792/607f32886ed53d08c380aa18/11ffb5bdab7ec974604c0fb2e5541105/image.jpeg')">
     <div class="overlay"></div>
     <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Contact Us</h1>
-            <span class="subheading">the coders who cook</span>
-          </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Contact Us</h1>
+                    <span class="subheading">the coders who cook</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
+</header>
 
-  <!-- Main Content -->
+<!-- Main Content -->
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <h3>Contact us</h3>
-            <form action="{{ url_for('contact') }}" method=post>
+            <form action="mailto:hellomegabites@hotmail.com" method=post>
                 <div>
                     <p>
-                {{ form.name.label }} <br>
-                {{ form.name(placeholder='Your Name...') }}
+                        {{ form.name.label }} <br>
+
+                        {{ form.name(placeholder='Your Name...') }}
                     </p>
                     <p>
-                {{ form.email.label }} <br>
-                {{ form.email(placeholder='Your e-mail...') }}
+                        {{ form.email.label }} <br>
+                        {{ form.email(placeholder='Your e-mail...') }}
                     </p>
                     <p>
-                {{ form.subject.label }}<br>
-                {{form.subject(placeholder='Your subject ...')}}
+                        {{ form.subject.label }}<br>
+                        {{form.subject(placeholder='Your subject ...')}}
                     </p>
                     <p>
-                {{ form.message.label }}<br>
-                {{ form.message(placeholder='Write your message here...') }}
+                        {{ form.message.label }}<br>
+                        {{ form.message(placeholder='Write your message here...') }}
                     </p>
                     <p>
-                {{ form.submit }}
+                        {{ form.submit }}
                     </p>
                 </div>
             </form>

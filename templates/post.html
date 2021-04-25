@@ -4,20 +4,21 @@
 
 {% block body %}
 
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/well-foods-microbiome-jumbo.jpeg') }}')">
+<!-- Page Header -->
+<header class="masthead"
+        style="background-image: url('{{post.masthead or 'https://trello-attachments.s3.amazonaws.com/6055f8e6be992c7aa92e5792/607f32886ed53d08c380aa18/583ba13d8a8cd0066b0c03d9cb7ac592/image.jpeg'}}')">
     <div class="overlay"></div>
     <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>megaBITES</h1>
-            <span class="subheading">the coders who cook</span>
-          </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>{{post.blog_title|safe}}</h1>
+                    <span class="subheading">{{post.blog_subtitle|safe}}</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
+</header>
 <script type="text/javascript">
   var scrollToElement = function(el, ms){
     var speed = (ms) ? ms : 600;
@@ -25,65 +26,67 @@
         scrollTop: $(el).offset().top
     }, speed);
 }
+
 </script>
 <!-- Main Content -->
 <div class="container">
-  {% if request.cookies.get('admin') == 'yes' %}
-  <div style="display: flex;">
-    <form action="/post/{{post.post_id}}/edit">
-      <button class="btn"><i class="fa fa-edit"></i>Edit</button>
-    </form>
-    <form action="/post/{{post.post_id}}/delete">
-      <button class="btn"><i class="fa fa-trash"></i>Delete</button>
-    </form>
-    </div>
-  <hr>
-   {% endif %}
-  <div class="justify-content-end">
+    {% if request.cookies.get('admin') == 'yes' %}
     <div style="display: flex;">
-    <form action="/post/{{post.post_id}}/like">
-      <button class="btn"><i class="fa fa-heart"></i> {{post.likes}} Likes</button>
-    </form>
-      <button class="btn" onclick="scrollToElement('#comments', 600)"><i class="fa fa-comments"></i> {{comments|length}} Comments</button>
-    </div>
-  </div>
-  <hr />
-  <h1>{{post.blog_title|safe}}</h1>
-  <h5>{{post.blog_subtitle|safe}}</h5>
-  <p>by {{post.blog_author}}</p>
-  <hr>
-   {{post.content|safe}}
-
-<!--  add a new div to put the comment list and comment box -->
-
-  <div id="comments">
-
-    {% for comment in comments|reverse %}
-    <hr />
-    <div class="card">
-      <div class="card-header">
-        <p>{{comment.author}} on {{comment.date}} said...</p>
-      </div>
-      <div class="card-body">
-          <p>{{comment.message}}</p>
-      </div>
+        <form action="/post/{{post.post_id}}/edit">
+            <button class="btn"><i class="fa fa-edit"></i>Edit</button>
+        </form>
+        <form action="/post/{{post.post_id}}/delete">
+            <button class="btn"><i class="fa fa-trash"></i>Delete</button>
+        </form>
     </div>
     <hr>
-    {% endfor %}
+    {% endif %}
+    <div class="justify-content-end">
+        <div style="display: flex;">
+            <form action="/post/{{post.post_id}}/like">
+                <button class="btn"><i class="fa fa-heart"></i> {{post.likes}} Likes</button>
+            </form>
+            <button class="btn" onclick="scrollToElement('#comments', 600)"><i class="fa fa-comments"></i>
+                {{comments|length}} Comments
+            </button>
+        </div>
+    </div>
+    <hr/>
+
+    <p>by {{post.blog_author}}</p>
+    <hr>
+    {{post.content|safe}}
+
+    <!--  add a new div to put the comment list and comment box -->
+
+    <div id="comments">
+
+        {% for comment in comments|reverse %}
+        <hr/>
+        <div class="card">
+            <div class="card-header">
+                <p>{{comment.author}} on {{comment.date}} said...</p>
+            </div>
+            <div class="card-body">
+                <p>{{comment.message}}</p>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
 
 
-  </div>
-  {% if request.cookies.get('is_logged_in') == 'yes' %}
-  <hr />
-  <div>
-    <h5>{{request.cookies.get('name')}} says...</h5>
-    <form action="/post/{{post.post_id}}/comment" method="post">
-    <div class="input-group">
-      <textarea class="form-control" name="message"></textarea>
-      <button type="submit" class="btn btn-primary">Submit Comment!</button>
-      </div>
-    </form>
-  </div>
-  {% endif %}
+    </div>
+    {% if request.cookies.get('is_logged_in') == 'yes' %}
+    <hr/>
+    <div>
+        <h5>{{request.cookies.get('name')}} says...</h5>
+        <form action="/post/{{post.post_id}}/comment" method="post">
+            <div class="input-group">
+                <textarea class="form-control" name="message"></textarea>
+                <button type="submit" class="btn btn-primary">Submit Comment!</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
