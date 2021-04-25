@@ -166,6 +166,7 @@ def register():
         return render_template("registration.html")
     else:
         user = User(
+            name=request.form['name'],
             email=request.form['email'],
             password=request.form['password'],
             is_admin="no"
