@@ -5,6 +5,8 @@ import sqlalchemy.orm
 from database_setup import Base, Blog, Subscriber, User, Comment
 from datetime import datetime
 
+from forms import ContactForm
+
 app = Flask(__name__)
 
 engine = create_engine("mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4")
@@ -113,9 +115,15 @@ def recipes():
     return render_template("recipes.html")
 
 
-@app.route('/contact/')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    return render_template("contact.html")
+    form = ContactForm()
+
+    if request.method == 'POST':
+        return 'Form posted.'
+
+    elif request.method == 'GET':
+        return render_template('contact.html', form=form)
 
 
 @app.route('/subscribe', methods=['POST'])
