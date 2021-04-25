@@ -35,6 +35,15 @@ class User(Base):
     is_admin = Column(String, nullable=False)
     name = Column(String, nullable=False)
 
+class Comment(Base):
+        __tablename__ = 'Comment'
+        post_id = Column(Integer, primary_key=True)
+        author = Column(String, nullable=False)
+        date = Column(DateTime, nullable=False)
+        likes = Column(String, nullable=False)
+        message = Column(String, nullable=False)
+
+
 
 # creates a create_engine instance - insert our password and team
 engine = create_engine("mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4")

@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, make_response
 from flask import request
 from sqlalchemy import create_engine
 import sqlalchemy.orm
-from database_setup import Base, Blog, Subscriber, User
+from database_setup import Base, Blog, Subscriber, User, Comment
 from datetime import datetime
 
 app = Flask(__name__)
@@ -27,7 +27,11 @@ def about():
 
 @app.route('/post/<post>')
 def post(post):
-    return render_template("post.html", post=session.query(Blog).filter_by(post_id=post).first())
+    return render_template(
+        "post.html",
+        post=session.query(Blog).filter_by(post_id=post).first(),
+        comments=session.query(Comment).filter_by(post_id=post).all()
+    )
 
 
 @app.route('/post/create', methods=['GET', 'POST'])
@@ -86,14 +90,21 @@ def like_post(id):
     return redirect('/post/' + id)
 
 
-@app.route('/post/<id>/comment')
+@app.route('/post/<id>/comment', methods=['POST'])
 def comment_post(id):
-    post = session.query(Blog).filter_by(post_id=id).first()
-    # 1. Fetch the post
-    # 2. create a comment from the request.form
-    # 3. set the author of the comment to the user id of login user
-    # 4. set the date of the comment to now
-    # 5. commit to the session
+    if request.cookies['is_logged_in'] != 'yes':
+        return redirect('/')
+
+    comment = Comment(
+        post_id=id,
+        author=request.cookies['name'],
+        message=request.form['message'],
+        date=datetime.now(),
+        likes=0
+    )
+
+    session.add(comment)
+    session.commit()
     return redirect('/post/' + id)
 
 
@@ -132,6 +143,7 @@ def try_login(email, password):
         response = make_response(redirect(url_for('home')))
         response.set_cookie('email', user.email)
         response.set_cookie('admin', user.is_admin)
+        response.set_cookie('name', user.name or user.email)
         response.set_cookie('is_logged_in', 'yes')
         return response
     else:
@@ -143,6 +155,8 @@ def logout():
     response = make_response(redirect(url_for('home')))
     response.delete_cookie('email')
     response.delete_cookie('admin')
+    response.delete_cookie('is_logged_in')
+    response.delete_cookie('name')
     return response
 
 

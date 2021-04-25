@@ -44,9 +44,10 @@
     <form action="/post/{{post.post_id}}/like">
       <button class="btn"><i class="fa fa-heart"></i> {{post.likes}} Likes</button>
     </form>
-      <button class="btn" onclick="scrollToElement('#comments', 600)"><i class="fa fa-comments"></i> {{post.likes}} Comments</button>
+      <button class="btn" onclick="scrollToElement('#comments', 600)"><i class="fa fa-comments"></i> {{comments|length}} Comments</button>
     </div>
   </div>
+  <hr />
   <h1>{{post.blog_title|safe}}</h1>
   <h5>{{post.blog_subtitle|safe}}</h5>
   <p>by {{post.blog_author}}</p>
@@ -56,22 +57,29 @@
 <!--  add a new div to put the comment list and comment box -->
 
   <div id="comments">
+
+    {% for comment in comments|reverse %}
+    <hr />
     <div class="card">
       <div class="card-header">
-        Comments
+        <p>{{comment.author}} on {{comment.date}} said...</p>
       </div>
       <div class="card-body">
-          <p></p>
+          <p>{{comment.message}}</p>
       </div>
     </div>
+    <hr>
+    {% endfor %}
+
+
   </div>
   {% if request.cookies.get('is_logged_in') == 'yes' %}
   <hr />
   <div>
     <h5>{{request.cookies.get('name')}} says...</h5>
-    <form action="/post/{{post.post_id}}/comment">
+    <form action="/post/{{post.post_id}}/comment" method="post">
     <div class="input-group">
-      <textarea class="form-control" name="content"></textarea>
+      <textarea class="form-control" name="message"></textarea>
       <button type="submit" class="btn btn-primary">Submit Comment!</button>
       </div>
     </form>
