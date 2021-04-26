@@ -38,7 +38,8 @@ class User(Base):
 
 class Comment(Base):
         __tablename__ = 'Comment'
-        post_id = Column(Integer, primary_key=True)
+        id = Column(Integer, primary_key=True)
+        post_id = Column(Integer, nullable=False)
         author = Column(String, nullable=False)
         date = Column(DateTime, nullable=False)
         likes = Column(String, nullable=False)

@@ -7,7 +7,7 @@
 body {
   font-size: 20px;
   color: #212529;
-  font-family: 'Lora', 'Times New Roman', serif;
+  font-family: 'Josefin Slab', sans-serif;
 }
 
 p {
@@ -26,21 +26,24 @@ h1
 }
 
 h2
-    {   font-family: 'Josefin Slab', sans-serif;
+    {
+    font-family: 'Josefin Slab', sans-serif;
     font-weight: 300;
 
     }
+
+p {
+    margin: 0;
+}
 
 p
 h3,
 h4,
 h5,
-h6,
-
-    {
+h6 {
     font-family: 'Josefin Slab', sans-serif;
     font-weight: 200;
-    }
+}
 
 a {
   color: #212529;
