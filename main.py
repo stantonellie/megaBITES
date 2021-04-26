@@ -1,5 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, make_response
 from flask import request
+from flask_mail import Mail, Message
+import os
 from sqlalchemy import create_engine
 import sqlalchemy.orm
 from database_setup import Base, Blog, Subscriber, User, Comment
@@ -9,6 +11,7 @@ from forms import ContactForm
 
 app = Flask(__name__)
 app.secret_key = 'development key'
+
 
 engine = create_engine("mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404'
@@ -112,6 +115,10 @@ def comment_post(id):
     session.add(comment)
     session.commit()
     return redirect('/post/' + id)
+
+@app.route('/post/<id>/comment', methods=['GET'])
+def get_comments():
+        return session.query.filter_by(post_id=post.id).order_by(Comment.date.desc())
 
 
 @app.route('/recipes/')

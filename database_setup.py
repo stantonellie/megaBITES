@@ -37,7 +37,7 @@ class User(Base):
     name = Column(String, nullable=False)
 
 class Comment(Base):
-        __tablename__ = 'Comments'
+        __tablename__ = 'Comment'
         post_id = Column(Integer, primary_key=True)
         author = Column(String, nullable=False)
         date = Column(DateTime, nullable=False)

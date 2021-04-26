@@ -19,18 +19,28 @@ p a {
   text-decoration: underline;
 }
 
-h1,
-h2 {
+h1
+ {
   font-weight: 800;
   font-family: 'Josefin Slab', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+h2
+    {   font-family: 'Josefin Slab', sans-serif;
+    font-weight: 300;
+
+    }
+
+p
 h3,
 h4,
 h5,
-h6 {
+h6,
+
+    {
+    font-family: 'Josefin Slab', sans-serif;
     font-weight: 200;
-}
+    }
 
 a {
   color: #212529;
@@ -416,3 +426,7 @@ footer .copyright {
   font-size: 16px;
   padding: 25px 35px;
 }
+
+div {
+text-align: center;
+ }

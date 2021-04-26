@@ -79,9 +79,9 @@
     {% if request.cookies.get('is_logged_in') == 'yes' %}
     <hr/>
     <div>
-        <h5>{{request.cookies.get('name')}} says...</h5>
-        <form action="/post/{{post.post_id}}/comment" method="post">
-            <div class="input-group">
+        <h3>{{request.cookies.get('name')}} says...</h3>
+         <form action="/post/{{post.post_id}}/comment" method="post">
+             <div class="input-group">
                 <textarea class="form-control" name="message"></textarea>
                 <button type="submit" class="btn btn-primary">Submit Comment!</button>
             </div>
