@@ -1,7 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, make_response
 from flask import request
 from flask_mail import Mail, Message
-import os
 from sqlalchemy import create_engine
 import sqlalchemy.orm
 from database_setup import Base, Blog, Subscriber, User, Comment
