@@ -3,10 +3,10 @@ from wtforms import StringField, PasswordField, TextField, TextAreaField, Submit
 from wtforms.validators import InputRequired
 
 class ContactForm(FlaskForm):
-    name = TextField("Name")
-    email = TextField("Email")
-    subject = TextField("Subject")
-    message = TextAreaField("Message")
+    name = StringField("Name", validators=[InputRequired()])
+    email = StringField("Email", validators=[InputRequired()])
+    subject = StringField("Subject", validators=[InputRequired()])
+    message = TextAreaField("Message", validators=[InputRequired()])
     submit = SubmitField("Send")
 
 class LoginForm(FlaskForm):

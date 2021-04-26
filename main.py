@@ -12,6 +12,14 @@ from forms import ContactForm
 app = Flask(__name__)
 app.secret_key = 'development key'
 
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_USERNAME"] = 'megabites.blogger@gmail.com'
+app.config["MAIL_PASSWORD"] = 'jwwfyzvrxobbeykh'
+
+mail = Mail()
+mail.init_app(app)
 
 engine = create_engine("mysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404?charset=utf8mb4")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin1:@GitPa$$w0rd#@54.74.234.11/team_404'
@@ -129,9 +137,14 @@ def recipes():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
-
     if request.method == 'POST':
-        return 'Form posted.'
+        msg = Message(form.subject.data, sender=form.email.data, recipients=['megabites.blogger@gmail.com'])
+        msg.body = """
+              From: %s <%s>
+              %s
+              """ % (form.name.data, form.email.data, form.message.data)
+        mail.send(msg)
+        return redirect('/')
 
     elif request.method == 'GET':
         return render_template('contact.html', form=form)
