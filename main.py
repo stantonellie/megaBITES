@@ -5,8 +5,8 @@ from sqlalchemy import create_engine
 import sqlalchemy.orm
 from database_setup import Base, Blog, Subscriber, User, Comment
 from datetime import datetime
-
 from forms import ContactForm
+from forms import SearchForm
 
 app = Flask(__name__)
 app.secret_key = 'development key'
@@ -123,9 +123,10 @@ def comment_post(id):
     session.commit()
     return redirect('/post/' + id)
 
+
 @app.route('/post/<id>/comment', methods=['GET'])
 def get_comments():
-        return session.query.filter_by(post_id=post.id).order_by(Comment.date.desc())
+    return session.query.filter_by(post_id=post.id).order_by(Comment.date.desc())
 
 
 @app.route('/recipes/')
@@ -163,15 +164,15 @@ def subscribe():
 
 @app.route('/login', methods=['POST'])
 def login():
-    return try_login(request.form['email'], request.form['password'])
+    return try_login(request.form['email'], request.form['password'], redirect(url_for('home')))
 
 
-def try_login(email, password):
+def try_login(email, password, then):
     user = session.query(User) \
         .filter_by(email=email) \
         .first()
     if user.password == password:
-        response = make_response(redirect(url_for('home')))
+        response = make_response(then)
         response.set_cookie('email', user.email)
         response.set_cookie('admin', user.is_admin)
         response.set_cookie('name', user.name or user.email)
@@ -196,18 +197,31 @@ def register():
     if request.method == 'GET':
         return render_template("registration.html")
     else:
-        user = User(
-            name=request.form['name'],
-            email=request.form['email'],
-            password=request.form['password'],
-            is_admin="no"
-        )
-        session.add(user)
-        session.commit()
-        return try_login(request.form['email'], request.form['password'])
+        try:
+            user = User(
+                name=request.form['name'],
+                email=request.form['email'],
+                password=request.form['password'],
+                is_admin="no"
+            )
+            session.add(user)
+            return try_login(
+                request.form['email'],
+                request.form['password'],
+                render_template("thank_you_for_registering.html")
+            )
+        except:
+            session.rollback()
+            return render_template("error.html", email=request.form['email'], error="uh oh... There was a problem registering!")
+
+
+@app.route('/search', methods=['POST'])
+def search():
+    search_term = request.form['search']
+    posts = session.query(Blog).filter(Blog.content.contains(search_term)).all()
+    return render_template('search.html', posts=posts, search=search_term)
 
 
 if __name__ == '__main__':
     app.debug = True
     app.run(host='localhost', port=5555)
-

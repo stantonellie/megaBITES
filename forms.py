@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextField, TextAreaField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, TextAreaField, SubmitField
 from wtforms.validators import InputRequired
 
 class ContactForm(FlaskForm):
@@ -14,7 +14,9 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired()])
 
 
-
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
+
+class SearchForm(FlaskForm):
+    search = StringField('search', validators=[InputRequired()])

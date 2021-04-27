@@ -44,18 +44,6 @@ class Comment(Base):
         date = Column(DateTime, nullable=False)
         likes = Column(String, nullable=False)
         message = Column(String, nullable=False)
-#
-# class ContactFormFill(Base):
-#     __tablename__= 'Contact_Form'
-#     contact_id = Column(Integer, primary_key=True)
-#     contact_name = Column(String, nullable=False)
-#     contact_email = Column(String, nullable=False)
-#     contact_subject = Column(Text, nullable=False)
-#     contact_message = Column(Text, nullable=False)
-
-
-
-
 
 
 # creates a create_engine instance - insert our password and team

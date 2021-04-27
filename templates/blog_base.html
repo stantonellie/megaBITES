@@ -48,7 +48,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <div class="search-container">
-                    <form action="/action_page.php">
+                    <form action="/search" method="post">
                         <input type="text" placeholder="Search.." name="search">
                         <button type="submit">Submit</button>
                     </form>
@@ -139,7 +139,8 @@
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; megaBITES 2021</p>
+                <br>
+                <h2 class="copyright text-muted">Copyright &copy; megaBITES 2021</h2>
             </div>
         </div>
     </div>
@@ -153,6 +154,5 @@
 <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
 
 </body>
-
 </html>
 
