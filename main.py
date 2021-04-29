@@ -14,8 +14,8 @@ app.secret_key = 'development key'
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
 app.config["MAIL_USE_SSL"] = True
-app.config["MAIL_USERNAME"] = 'megabites.blogger@gmail.com'
-app.config["MAIL_PASSWORD"] = 'jwwfyzvrxobbeykh'
+app.config["MAIL_USERNAME"] = 'heym3g4b1t3s@gmail.com'
+app.config["MAIL_PASSWORD"] = 'megabites1'
 
 mail = Mail()
 mail.init_app(app)
